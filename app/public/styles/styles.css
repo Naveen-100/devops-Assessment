@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    background-image: url('1900901.webp');
+}
+h1 {
+    text-align: center;
+}
+.container {
+    background-color: #54b5d2;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    text-align: center;
+    height: 350px;
+    width: 500px;
+    margin: auto;
+}
+.container2 {
+    padding-top: 20px;
+    width: 100%;
+}
+input {
+    border-radius: 10px;
+    height: 40px;
+    width: 250px;
+    border: 0px;
+    font-size: 23px;
+}
+.input2 {
+    margin-top: 40px;
+}
+.submit {
+    width: 100px;
+    margin-top: 30px;
+}
+.submit:hover {
+    cursor: pointer;
+}

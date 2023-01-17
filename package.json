@@ -1,32 +1,19 @@
 {
-  "name": "node-js-sample",
-  "version": "0.2.0",
-  "description": "A sample Node.js app using Express 4",
-  "main": "index.js",
+  "name": "sample-node-project",
+  "version": "1.0.0",
+  "description": "Sample Node.js Project",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "jest",
-    "start": "node index.js",
     "coverage": "jest --collectCoverage"
   },
+  "author": "Ankit Satyam",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.13.3",
-    "jest": "^29.3.1"
-  },
-  "engines": {
-    "node": "4.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heroku/node-js-sample"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "author": "Mark Pundsack",
-  "contributors": [
-    "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)"
-  ],
-  "license": "MIT"
+    "ejs": "latest",
+    "express": "latest",
+    "jest": "^29.3.1",
+    "type-detect": "^4.0.8"
+  }
 }

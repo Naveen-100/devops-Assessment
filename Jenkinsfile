@@ -3,20 +3,20 @@ pipeline {
     environment {
         dockerImage = ''
     }
-    tools {nodejs "NODE JS"}
     stages {
-        stage('pull the code') {
+        stage('Poll Code Repository') {
             steps {
-               git credentialsId: 'jnks-pvt', url: 'git@github.com:Naveen-100/devops-Assessment.git'
+                git credentialsId: 'jnks-pvt', url: 'git@github.com:Naveen-100/devops-Assessment.git'
             }
         }
-        stage('Build and Install') {
-
+        stage('npm install') {
             steps {
-                script{
                 sh 'npm install'
-                sh 'npm test'
             }
+        }
+        stage('test') {
+            steps {
+                sh 'npm run test'
             }
         }
         stage('sonarQube'){
@@ -27,28 +27,32 @@ pipeline {
                     -Dsonar.login=sqp_e046a561d4c4f57e9caa9236d24ec1469bb5ed86'
             }
         }
-         stage('Docker Build') {
-             steps {
-                 sh 'docker build -t naveen2809/devops/nodejs:latest .'
-             }
-         }
-         stage("Docker push"){
-             steps{
-                 script {
-                sh "docker login -u naveen2809 -p Docker"
-                sh "docker push naveen2809/devops/nodejs:latest"
+        stage('docker build') {
+            steps{
+                script{
+                    dockerImage = docker.build("naveen2809/node-1:latest")
                 }
             }
         }
-         stage('install docker'){
-             steps{
-                  ansiblePlaybook credentialsId: 'jnks-pvt', disableHostKeyChecking: true, inventory: 'ansible/dev.inv', playbook: 'ansible/install-docker.yml'
-             }
-         }
-         stage('Start container'){
-             steps{
-                  ansiblePlaybook credentialsId: 'jnks-pvt', disableHostKeyChecking: true, inventory: 'ansible/dev.inv', playbook: 'ansible/install-image.yml'
-             }
-         }
+        stage('docker push') {
+            
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-key', url: "") {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Ansible install docker'){
+            steps{
+                ansiblePlaybook credentialsId: 'jnks-pvt', disableHostKeyChecking: true, inventory: 'ansible/dev.inv', playbook: 'ansible/docker.yml'
+            }
+        }
+        stage('Ansible deploy  image'){
+            steps{
+                ansiblePlaybook credentialsId: 'jnks-pvt', disableHostKeyChecking: true, inventory: 'ansible/dev.inv', playbook: 'ansible/deploy-image.yml', vaultCredentialsId: 'ansible-vault'
+            }
+        }
     }
 }

@@ -1,0 +1,32 @@
+---
+- name: Deploy Docker Image
+  hosts: client
+  become: true
+  vars_files:
+  - docker-cred.yml
+  tasks:
+    - name: Log into docker hub
+      docker_login:
+        username: "{{ username }}"
+        password: "{{ password }}"
+        reauthorize: yes
+
+    - name: Run Docker Conatiner
+      docker_container:        
+        name: node-demo
+        image: asatyam78/node-demo:latest
+        state: started
+        pull: true
+        ports:
+        - "3005:3005"
+        
+    - name: Connect to docker container on port 8080 and check status 200 (Try 5 times)
+      tags: test
+      uri:
+        url: http://localhost:3005
+      register: result
+      until: "result.status == 200"
+      retries: 5
+      delay: 5
+
+---
