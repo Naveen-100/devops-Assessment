@@ -2,9 +2,11 @@
 - name: Deploy Docker Image
   hosts: client
   become: true
-  vars:
-    username: naveen2809
-    password: Naveen
+  # vars:
+  #   username: naveen2809
+  #   password: Naveen
+  vars_files:
+    - cred.yaml
   tasks:
     - name: Log into docker hub
       docker_login:
