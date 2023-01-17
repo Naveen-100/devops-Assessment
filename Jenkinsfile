@@ -16,7 +16,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'npm run test'
+                sh 'npm test'
             }
         }
         stage('sonarQube'){
