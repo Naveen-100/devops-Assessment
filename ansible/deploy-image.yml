@@ -4,7 +4,7 @@
   become: true
   vars:
     username: naveen2809
-    password: Naveen@12#
+    password: Naveen
   tasks:
     - name: Log into docker hub
       docker_login:
