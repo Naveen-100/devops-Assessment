@@ -21,10 +21,14 @@ pipeline {
         }
         stage('sonarQube'){
             steps{
-                sh 'mvn clean verify sonar:sonar \
-                    -Dsonar.projectKey=devops-123 \
-                    -Dsonar.host.url=http://137.135.113.220:9000 \
-                    -Dsonar.login=sqp_e046a561d4c4f57e9caa9236d24ec1469bb5ed86'
+                sh '''
+                sudo npm install -g sonarqube-scanner
+                sonar-scanner \
+                -Dsonar.projectKey=devops-123 \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=http://137.135.113.220:9000 \
+                -Dsonar.login=sqp_e046a561d4c4f57e9caa9236d24ec1469bb5ed86
+                '''
             }
         }
         stage('docker build') {
