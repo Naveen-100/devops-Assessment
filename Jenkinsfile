@@ -22,7 +22,7 @@ pipeline {
         stage('sonarQube'){
             steps{
                 sh '''
-                sudo npm install -g sonarqube-scanner
+                npm install sonarqube-scanner
                 sonar-scanner \
                 -Dsonar.projectKey=devops-123 \
                 -Dsonar.sources=. \
