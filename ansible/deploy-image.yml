@@ -2,8 +2,9 @@
 - name: Deploy Docker Image
   hosts: client
   become: true
-  vars_files:
-  - docker-cred.yml
+  vars:
+    username: naveen2809
+    password: Naveen@12#
   tasks:
     - name: Log into docker hub
       docker_login:
@@ -14,7 +15,7 @@
     - name: Run Docker Conatiner
       docker_container:        
         name: node-demo
-        image: asatyam78/node-demo:latest
+        image: naveen2809/node-1:latest
         state: started
         pull: true
         ports:
@@ -28,5 +29,3 @@
       until: "result.status == 200"
       retries: 5
       delay: 5
-
----
