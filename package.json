@@ -8,7 +8,7 @@
     "test": "jest",
     "coverage": "jest --collectCoverage"
   },
-  "author": "Ankit Satyam",
+  "author": "Naveen KAlidindi",
   "license": "ISC",
   "dependencies": {
     "ejs": "latest",

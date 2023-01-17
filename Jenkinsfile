@@ -14,11 +14,11 @@ pipeline {
                 sh 'npm install'
             }
         }
-        // stage('test') {
-        //     steps {
-        //         sh 'npm test'
-        //     }
-        // }
+        stage('test') {
+            steps {
+                sh 'npm test'
+            }
+        }
         stage('sonarQube'){
             steps{
                 sh 'mvn clean verify sonar:sonar \
